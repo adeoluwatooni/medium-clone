@@ -19,6 +19,7 @@ dotenv.config()
 // middleware
 app.use(express.json())
 
+
 // to respond to the requests from the client
 app.use('/api/articles', articleRoutes)
 
@@ -33,11 +34,4 @@ mongoose.connect(process.env.MONGO_URI,)
   .catch((err) => {
     console.log(err)
   })
-
-
-app.get('/', (req, res) => {
-  res.json({mssg: 'Hello from backend'})
-  console.log('testing the backend')
-})
-
 

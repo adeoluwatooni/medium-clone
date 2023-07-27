@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon app"
   },
-  "author": "",
+  "author": "Adeoluwa Abraham Idowu",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
@@ -15,5 +15,9 @@
     "mongoose": "^7.4.1",
     "morgan": "^1.10.0",
     "nodemon": "^3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adeoluwatooni/medium-clone.git"
   }
 }

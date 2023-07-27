@@ -1,0 +1,15 @@
+{
+  "name": "medium_clone-mernapp",
+  "version": "1.0.0",
+  "description": "a clone of the medium blog app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adeoluwatooni/medium-clone.git"
+  },
+  "author": "Adeoluwa Abraham Idowu",
+  "license": "ISC"
+}

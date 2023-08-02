@@ -4,21 +4,17 @@ const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 
-
 // importing custom modules
-const articleRoutes = require('./routes/articleRoutes')
+const articleRoutes = require('./routes/articleRoute')
 
 // initializing express
 const app = express()
 
-
 // configure dotenv
 dotenv.config()
 
-
 // middleware
 app.use(express.json())
-
 
 // to respond to the requests from the client
 app.use('/api/articles', articleRoutes)

@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 // importing custom modules
 const articleRoutes = require('./routes/articleRoute')
+const userRoutes = require('./routes/userRoute')
 
 // initializing express
 const app = express()
@@ -18,7 +19,7 @@ app.use(express.json())
 
 // to respond to the requests from the client
 app.use('/api/articles', articleRoutes)
-
+app.use('/api/user', userRoutes)
 
 // connecting to mongoDB Atlas
 mongoose.connect(process.env.MONGO_URI,)

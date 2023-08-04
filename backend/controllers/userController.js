@@ -1,6 +1,8 @@
 
 const userModel = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+const bcrypt = require('bcrypt')
+const mongoose = require('mongoose')
 
 const createUserToken = (_id) => {
   return jwt.sign({_id}, process.env.SECRET, {expiresIn : '60d'})
@@ -38,4 +40,42 @@ const login = async (req, res) => {
   }
 }
 
-module.exports = { signup, login }
+const deleteAccount = async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: "Invalid ID, User Not Found"})
+  }
+
+  try {
+    // finding the user
+    const user = await userModel.findById(id);
+
+    if (!user) {
+      return res.status(400).json({ mssg: 'User not found' });
+    }
+
+    // ask user to input their password
+    if (!password) {
+      return res.status(400).json({ mssg: 'Please enter your password to delete your Account' });
+    }
+
+    // check if password matches
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (!passwordMatch) {
+      return res.status(400).json({ mssg: 'Please enter the correct password' });
+    }
+
+    await userModel.findByIdAndDelete(id);
+
+
+    res.status(200).json({ mssg: 'User Account successfully deleted' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+module.exports = { signup, login, deleteAccount }

@@ -6,7 +6,8 @@ const validator = require('validator')
 const userSchema = new mongoose.Schema({
   fullname: {
     type: String,
-    required: true
+    required: true,
+    maxlength: 25
   },
   email: {
     type: String,
@@ -18,11 +19,16 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  bio: {
+    type: String,
+    default: '',
+    maxlength: 160
+  },
   profilePicture: {
     type: String,
     default: ''
   }
-})
+}, {timestamps : true})
 
 // static method for the signup controller logic
 userSchema.statics.createNewUser = async function (fullname, email, password) {

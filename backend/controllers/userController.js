@@ -8,6 +8,7 @@ const createUserToken = (_id) => {
   return jwt.sign({_id}, process.env.SECRET, {expiresIn : '60d'})
 }
 
+// Sign Up                  User <------------------------------------------------------>
 const signup = async (req, res) => {
   const { fullname, email, password } = req.body
 
@@ -23,7 +24,7 @@ const signup = async (req, res) => {
   }
 }
 
-
+// Log in User <------------------------------------------------------>
 const login = async (req, res) => {
   const { email, password } = req.body
 
@@ -40,9 +41,48 @@ const login = async (req, res) => {
   }
 }
 
+// Delete User <------------------------------------------------------>
 const deleteAccount = async (req, res) => {
-  const { id } = req.params;
-  const { password } = req.body;
+  const { id } = req.params
+  const { password } = req.body
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: "Invalid ID, User Not Found"})
+  }
+
+  try {
+    // finding the user
+    const user = await userModel.findById(id)
+
+    if (!user) {
+      return res.status(400).json({ mssg: 'User not found' })
+    }
+
+    // ask user to input their password
+    if (!password) {
+      return res.status(400).json({ mssg: 'Please enter your password to delete your Account' })
+    }
+
+    // check if password matches
+    const passwordMatch = await bcrypt.compare(password, user.password)
+
+    if (!passwordMatch) {
+      return res.status(400).json({ mssg: 'Please enter the correct password' })
+    }
+
+    await userModel.findByIdAndDelete(id);
+
+
+    res.status(200).json({ mssg: 'User Account successfully deleted' })
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+}
+
+// Update User <------------------------------------------------------>
+const updateUser = async (req, res) => {
+  const { id } = req.params
+  const update = req.body
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: "Invalid ID, User Not Found"})
@@ -53,29 +93,17 @@ const deleteAccount = async (req, res) => {
     const user = await userModel.findById(id);
 
     if (!user) {
-      return res.status(400).json({ mssg: 'User not found' });
+      return res.status(400).json({ mssg: 'User not found' })
     }
 
-    // ask user to input their password
-    if (!password) {
-      return res.status(400).json({ mssg: 'Please enter your password to delete your Account' });
-    }
+    await userModel.findByIdAndUpdate(id, update)
 
-    // check if password matches
-    const passwordMatch = await bcrypt.compare(password, user.password);
-
-    if (!passwordMatch) {
-      return res.status(400).json({ mssg: 'Please enter the correct password' });
-    }
-
-    await userModel.findByIdAndDelete(id);
-
-
-    res.status(200).json({ mssg: 'User Account successfully deleted' });
+    res.status(200).json(update)
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({error:error.message})
   }
-};
+}
 
 
-module.exports = { signup, login, deleteAccount }
+
+module.exports = { signup, login, updateUser, deleteAccount }

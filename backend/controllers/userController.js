@@ -72,7 +72,6 @@ const deleteAccount = async (req, res) => {
 
     await userModel.findByIdAndDelete(id);
 
-
     res.status(200).json({ mssg: 'User Account successfully deleted' })
   } catch (error) {
     res.status(500).json({ error: error.message })

@@ -18,7 +18,7 @@ router.get('/:id', (req, res) => {
 })
 
 // update one article
-router.patch('/:id', (req, res) => {
+router.put('/:id', (req, res) => {
   res.json({mssg: 'request to UPDATE ONE'})
 })
 

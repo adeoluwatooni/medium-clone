@@ -5,7 +5,7 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 
 // importing custom modules
-const articleRoutes = require('./routes/articleRoute')
+const postRoutes = require('./routes/postRoute')
 const userRoutes = require('./routes/userRoute')
 
 // initializing express
@@ -18,7 +18,7 @@ dotenv.config()
 app.use(express.json())
 
 // to respond to the requests from the client
-app.use('/api/articles', articleRoutes)
+app.use('/api/articles', postRoutes)
 app.use('/api/user', userRoutes)
 
 // connecting to mongoDB Atlas

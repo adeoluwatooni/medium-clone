@@ -1,11 +1,11 @@
 const express = require('express')
+const {createPost} = require('../controllers/postController')
+
 
 const router = express.Router()
 
 // create an article
-router.post('/', (req, res) => {
-  res.json({mssg:'request to POST'})
-})
+router.post('/', createPost)
 
 // get all articles 
 router.get('/',(req, res) => {

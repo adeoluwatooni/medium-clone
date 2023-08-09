@@ -1,30 +1,27 @@
 const express = require('express')
-const {createPost} = require('../controllers/postController')
+const { createPost, getAllPosts, getOnePost, deletePost, updatePost } = require('../controllers/postController')
 
+// adding the custom authentication middleware
+// const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
 
-// create an article
+// confirming Authentication 
+// router.use(requireAuth)
+
+// create a post
 router.post('/', createPost)
 
-// get all articles 
-router.get('/',(req, res) => {
-  res.json({mssg:'request to GET ALL'})
-})
+// get all posts 
+router.get('/',getAllPosts)
 
-// get one article
-router.get('/:id', (req, res) => {
-  res.json({mssg: 'request to GET ONE'})
-})
+// get one post
+router.get('/:id', getOnePost)
 
-// update one article
-router.put('/:id', (req, res) => {
-  res.json({mssg: 'request to UPDATE ONE'})
-})
+// update one post
+router.put('/:id', updatePost)
 
-// delete one article
-router.delete('/:id', (req, res) => {
-  res.json({mssg: 'request to DELETE ONE'})
-})
+// delete one post
+router.delete('/:id', deletePost)
 
 module.exports = router

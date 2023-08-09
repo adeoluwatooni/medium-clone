@@ -8,7 +8,7 @@ const createUserToken = (_id) => {
   return jwt.sign({_id}, process.env.SECRET, {expiresIn : '60d'})
 }
 
-// Sign Up                  User <------------------------------------------------------>
+// Sign Up User <------------------------------------------------------>
 const signup = async (req, res) => {
   const { fullname, email, password } = req.body
 

@@ -65,21 +65,38 @@ const getOnePost = async (req, res) => {
 
 // Update Post <------------------------------------------------------>
 const updatePost = async (req, res) => {
-  const { id } = req.params
-  const {title, content, categories} = req.body
+  const { token } = req.body
+  
+  if (!token) {
+    return res.status(400).json({ mssg: 'No authorization' })
+  } 
+  
+  const result = await verifyToken(token)
+  const author = result._id
+  console.log('author' ,author)
 
-  console.log(id);
+  const { id } = req.params
+  const { title, content, categories } = req.body
+
   const post = await postModel.findById({ _id: id })
   if (!post) {
     return res.status(400).json({ mssg: 'this post does not exist in our data base' })
   }
-console.log(post)
-  try {
-    const updatedPost = await postModel.findByIdAndUpdate({ _id: id }, { title, content, categories })
-    res.status(201).json({updatedPost})
-  } catch (error) {
-    res.status(400).json({error: error.message})
-  }
+  // extracting the objectid string to make sure only the author can update their posts
+  const postAuthor = post.author.toString(); // Convert the ObjectId to a string
+  console.log('postAuthor', postAuthor);
+
+      
+    if (postAuthor !== author) {
+      return res.status(400).json({ mssg: 'You are unauthorized to perform this action' })
+    }
+    try {
+      const updatedPost = await postModel.findByIdAndUpdate({ _id: id }, { title, content, categories })
+      res.status(201).json({ updatedPost })
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+  
 }
 
 // Delete Post <------------------------------------------------------>

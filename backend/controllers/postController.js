@@ -6,16 +6,18 @@ const postModel = require('../models/postModel')
 // configure dotenv
 dotenv.config()
 
+
 const verifyToken = (token) => {
   return jwt.verify(token, process.env.SECRET)
 }
+
 
 // Create Post <------------------------------------------------------>
 const createPost = async (req, res) => {
   
   const {token} = req.body
   const result = await verifyToken(token)
-  console.log(result);
+  // console.log(result);
 
   const { title, content, categories } = req.body
   const author = result._id
@@ -25,9 +27,11 @@ const createPost = async (req, res) => {
   }
 
   try {
-    const blogPost = await (await postModel.create({ title, content, author, categories })).populate('author')
+    const blogPost = await postModel.create({ title, content, author, categories })
+
+    const { password, ...others } = blogPost.toObject()
     // console.log(blogPost.author.fullname)
-    res.status(200).json({blogPost})
+    res.status(200).json({others})
   } catch (error) {
     res.status(500).json({error: error.message})
   }
@@ -37,13 +41,14 @@ const createPost = async (req, res) => {
 // Get all Posts <------------------------------------------------------>
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await postModel.find({}).sort({ createdAt: -1 })
+    const posts = await postModel.find({}).sort({ createdAt: -1 }).populate('author', 'fullname')
 
     res.status(200).json({posts})
   } catch (error) {
     res.status(500).json({error: error.message})
   }
 }
+
 
 // Get one Post <------------------------------------------------------>
 const getOnePost = async (req, res) => {
@@ -55,13 +60,14 @@ const getOnePost = async (req, res) => {
   }
   
   try {
-    const post = await postModel.findById({ _id : id })
+    const post = await postModel.findById({ _id : id }).populate('author', 'fullname')
     
     res.status(200).json({post})
   } catch (error) {
     res.status(400).json({error: error.message})
   }
 }
+
 
 // Update Post <------------------------------------------------------>
 const updatePost = async (req, res) => {
@@ -83,7 +89,7 @@ const updatePost = async (req, res) => {
     return res.status(400).json({ mssg: 'this post does not exist in our data base' })
   }
   // extracting the objectid string to make sure only the author can update their posts
-  const postAuthor = post.author.toString(); // Convert the ObjectId to a string
+  const postAuthor = post.author.toString(); // Convert the ObjectId to a string from object format
   console.log('postAuthor', postAuthor);
 
       
@@ -99,8 +105,8 @@ const updatePost = async (req, res) => {
   
 }
 
-// Delete Post <------------------------------------------------------>
 
+// Delete Post <------------------------------------------------------>
 const deletePost = async (req, res) => {
   const { id } = req.params
 

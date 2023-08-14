@@ -1,5 +1,5 @@
 const express = require('express')
-const { createPost, getAllPosts, getOnePost, deletePost, updatePost } = require('../controllers/postController')
+const { createPost, getAllPosts, getOnePost, deletePost, updatePost, createComment } = require('../controllers/postController')
 
 // adding the custom authentication middleware
 // const requireAuth = require('../middleware/requireAuth')
@@ -12,6 +12,9 @@ const router = express.Router()
 // create a post
 router.post('/', createPost)
 
+// create a comment
+router.post('/:id/comment', createComment)
+
 // get all posts 
 router.get('/',getAllPosts)
 
@@ -23,5 +26,6 @@ router.put('/:id', updatePost)
 
 // delete one post
 router.delete('/:id', deletePost)
+
 
 module.exports = router

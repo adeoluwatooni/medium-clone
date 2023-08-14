@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken')
 const dotenv = require('dotenv')
 
 const postModel = require('../models/postModel')
+const commentModel = require('../models/commentsModel')
+const commentsModel = require('../models/commentsModel')
 
 // configure dotenv
 dotenv.config()
@@ -38,11 +40,58 @@ const createPost = async (req, res) => {
 }
 
 
+// Create a comment to a post <------------------------------------------------------>
+
+const createComment = async (req, res) => {
+  // making sure users are logged in before they can comment
+  const {token} = req.body
+  const result = await verifyToken(token)
+
+  const { id } = req.params
+
+  const { text } = req.body
+  const author = result._id
+
+  !text && res.status(400).json({ mssg: "comment can not be empty" })
+  
+  try {
+// get the related post
+    const relatedPost = await postModel.findById({_id : id}) 
+    if (!relatedPost) {
+      return res.status(400).json({mssg: "this post does not exist"})
+    }
+
+    // create the comment
+    const comment = await commentsModel.create({ text, commentAuthor: author, post: id})
+    
+    // push the comment into the post.comments array
+    relatedPost.comments.push(comment)
+
+    // save and redirect...
+    await relatedPost.save()
+    res.status(200).json({ relatedPost })
+    // .redirect('/articles')
+  } catch (error) {
+    res.status(500).json({error: error.message})
+  }
+
+/*
+await postRelated.save(function(err) {
+if(err) {console.log(err)}
+res.redirect('/')
+})
+*/
+}
+
+
+
 // Get all Posts <------------------------------------------------------>
 const getAllPosts = async (req, res) => {
   try {
     const posts = await postModel.find({}).sort({ createdAt: -1 }).populate('author', 'fullname')
-
+    if (posts.length < 1 ) {
+      return res.status(200).json({mssg: 'No blog post available'})
+    }
     res.status(200).json({posts})
   } catch (error) {
     res.status(500).json({error: error.message})
@@ -54,6 +103,7 @@ const getAllPosts = async (req, res) => {
 const getOnePost = async (req, res) => {
   const { id } = req.params
 
+  // check if the post even exists at all
   const post = await postModel.findById({ _id: id })
   if (!post) {
     return res.status(400).json({ mssg: 'this post does not exist in our data base' })
@@ -73,6 +123,7 @@ const getOnePost = async (req, res) => {
 const updatePost = async (req, res) => {
   const { token } = req.body
   
+  // confirm the user is logged in/signed up
   if (!token) {
     return res.status(400).json({ mssg: 'No authorization' })
   } 
@@ -84,6 +135,7 @@ const updatePost = async (req, res) => {
   const { id } = req.params
   const { title, content, categories } = req.body
 
+  // check the post still exists
   const post = await postModel.findById({ _id: id })
   if (!post) {
     return res.status(400).json({ mssg: 'this post does not exist in our data base' })
@@ -125,4 +177,4 @@ const deletePost = async (req, res) => {
 }
 
 
-module.exports = { createPost, getAllPosts, getOnePost,updatePost, deletePost }
+module.exports = { createPost, getAllPosts, getOnePost,updatePost, deletePost, createComment }

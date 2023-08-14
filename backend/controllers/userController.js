@@ -46,6 +46,7 @@ const deleteAccount = async (req, res) => {
   const { id } = req.params
   const { password } = req.body
 
+  // confirm the id is a valid mongoose id
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: "Invalid ID, User Not Found"})
   }
@@ -82,7 +83,8 @@ const deleteAccount = async (req, res) => {
 const updateUser = async (req, res) => {
   const { id } = req.params
   const update = req.body
-
+  
+  // confirming the id is a vali mongoose id
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({error: "Invalid ID, User Not Found"})
   }

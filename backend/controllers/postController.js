@@ -74,13 +74,6 @@ const createComment = async (req, res) => {
   } catch (error) {
     res.status(500).json({error: error.message})
   }
-
-/*
-await postRelated.save(function(err) {
-if(err) {console.log(err)}
-res.redirect('/')
-})
-*/
 }
 
 

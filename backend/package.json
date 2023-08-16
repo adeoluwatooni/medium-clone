@@ -22,5 +22,11 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/adeoluwatooni/medium-clone.git"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.22.10",
+    "@babel/core": "^7.22.10",
+    "@babel/node": "^7.22.10",
+    "@babel/preset-env": "^7.22.10"
   }
 }

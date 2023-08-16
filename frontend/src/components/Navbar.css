@@ -1,0 +1,92 @@
+
+
+.navBar{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 18px 10px 24px;
+  border-bottom: 0.01px solid gray;
+}
+
+
+/* Left side of the nav bar -------------------------------*/
+
+.leftNav{
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+}
+
+.logo img{
+  width: 44.02px;
+}
+
+.searchForm{
+  border: 1px solid transparent;
+  background-color: rgba(220, 220, 220, 0.147);
+  border-radius: 25px;
+  box-sizing: border-box;
+  height: 40px;
+  width: 235px;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchForm:hover{
+  cursor: text;
+}
+
+/* .searchForm span{
+  border: none;
+  outline:none;
+} */
+
+.searchForm input {
+  border: none;
+  background: transparent;
+  outline: none;
+}
+
+
+
+/* Right side of the nav bar -------------------------------*/
+
+.rightNav{
+  display: flex;
+  align-items: center;
+  column-gap: 27px;
+}
+
+.write{
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.write img{
+  width: 22px;
+}
+
+.write p{
+  margin: 0;
+  padding: 0;
+  color: gray;
+}
+
+.notifications img{
+  width: 24px;
+}
+
+.userNav img{
+  width: 35px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 100,
+  'GRAD' 0,
+  'opsz' 24
+}

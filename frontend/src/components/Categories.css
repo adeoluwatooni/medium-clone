@@ -1,0 +1,23 @@
+
+
+.categories{
+  display: flex;
+  align-items: center;
+  overflow: scroll ;
+  white-space: nowrap;
+}
+
+.categories a{
+  text-decoration: none;
+  color: gray;
+  row-gap: 10px;
+  margin: 4px 10px;
+}
+
+.categories a:hover{
+  color: black;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}

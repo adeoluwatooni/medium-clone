@@ -4,3 +4,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.body{
+  width: 80%;
+  display: grid;
+  grid-template-columns: 25fr 10fr;
+  margin: 50px auto;
+}
+
+.leftBodySection{
+  max-width: 700px;
+  /* background-color: bisque; */
+  padding: 10px;
+}

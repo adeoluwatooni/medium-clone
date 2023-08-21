@@ -1,31 +1,16 @@
-const jwt = require('jsonwebtoken')
-const dotenv = require('dotenv')
+
 
 const postModel = require('../models/postModel')
-const commentModel = require('../models/commentsModel')
 const commentsModel = require('../models/commentsModel')
-
-// configure dotenv
-dotenv.config()
-
-
-const verifyToken = (token) => {
-  return jwt.verify(token, process.env.SECRET)
-}
-
 
 // Create Post <------------------------------------------------------>
 const createPost = async (req, res) => {
-  
-  const {token} = req.body
-  const result = await verifyToken(token)
-  // console.log(result);
 
   const { title, content, categories } = req.body
-  const author = result._id
+  const author = req.user.id
 
   if (!title || !content || !author || !categories) { 
-    return res.status(400).json({mssg: 'please fill all the required fields!'})
+    return res.status(400).json({mssg: 'Please fill all the required fields!'})
   }
 
   try {
@@ -43,26 +28,22 @@ const createPost = async (req, res) => {
 // Create a comment to a post <------------------------------------------------------>
 
 const createComment = async (req, res) => {
-  // making sure users are logged in before they can comment
-  const {token} = req.body
-  const result = await verifyToken(token)
-
-  const { id } = req.params
+  const author = req.user.id
 
   const { text } = req.body
-  const author = result._id
+  const { id } = req.params
 
   !text && res.status(400).json({ mssg: "comment can not be empty" })
   
   try {
-// get the related post
+    // get the related post
     const relatedPost = await postModel.findById({_id : id}) 
     if (!relatedPost) {
       return res.status(400).json({mssg: "this post does not exist"})
     }
 
     // create the comment
-    const comment = await commentsModel.create({ text, commentAuthor: author, post: id})
+    const comment = await (await commentsModel.create({ text, commentAuthor: author, post: id})).populate('commentAuthor')
     
     // push the comment into the post.comments array
     relatedPost.comments.push(comment)
@@ -77,11 +58,32 @@ const createComment = async (req, res) => {
 }
 
 
+//Like a post <------------------------------------------------------>
+const likePost = async (req, res) => {
+  const { id } = req.params
+  const user = req.user.id
+
+  try {
+    const blogPost = await postModel.findById({ _id: id })
+
+    if (blogPost.likes.includes(user)) {
+      blogPost.likes = blogPost.likes.filter((userId) => {
+        userId !== user
+      })
+    }
+    await blogPost.save()
+
+    return res.status(200).json({mssg: 'Successfully liked the post'})
+  } catch (error) {
+    res.status(500).json({error: error.message})
+  }
+}
+
 
 // Get all Posts <------------------------------------------------------>
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await postModel.find({}).sort({ createdAt: -1 }).populate('author', 'fullname')
+    const posts = await postModel.find({}).sort({ createdAt: -1 }).populate('author', '-password')
     if (posts.length < 1 ) {
       return res.status(200).json({mssg: 'No blog post available'})
     }
@@ -103,7 +105,7 @@ const getOnePost = async (req, res) => {
   }
   
   try {
-    const post = await postModel.findById({ _id : id }).populate('author', 'fullname')
+    const post = await postModel.findById({ _id : id }).populate('author', '-password')
     
     res.status(200).json({post})
   } catch (error) {
@@ -114,35 +116,26 @@ const getOnePost = async (req, res) => {
 
 // Update Post <------------------------------------------------------>
 const updatePost = async (req, res) => {
-  const { token } = req.body
-  
-  // confirm the user is logged in/signed up
-  if (!token) {
-    return res.status(400).json({ mssg: 'No authorization' })
-  } 
-  
-  const result = await verifyToken(token)
-  const author = result._id
-  console.log('author' ,author)
 
   const { id } = req.params
   const { title, content, categories } = req.body
+  const author = req.user.id
 
   // check the post still exists
   const post = await postModel.findById({ _id: id })
   if (!post) {
     return res.status(400).json({ mssg: 'this post does not exist in our data base' })
   }
-  // extracting the objectid string to make sure only the author can update their posts
+  // extracting the object id string to make sure only the author can update their posts
   const postAuthor = post.author.toString(); // Convert the ObjectId to a string from object format
   console.log('postAuthor', postAuthor);
+  console.log('author', author);
 
-      
-    if (postAuthor !== author) {
+    if ( postAuthor !== author ) {
       return res.status(400).json({ mssg: 'You are unauthorized to perform this action' })
     }
     try {
-      const updatedPost = await postModel.findByIdAndUpdate({ _id: id }, { title, content, categories })
+      const updatedPost = await postModel.findByIdAndUpdate({ _id: id }, { title, content, categories }, {new : true})
       res.status(201).json({ updatedPost })
     } catch (error) {
       res.status(400).json({ error: error.message })
@@ -154,10 +147,19 @@ const updatePost = async (req, res) => {
 // Delete Post <------------------------------------------------------>
 const deletePost = async (req, res) => {
   const { id } = req.params
+  const user = req.user.id
+  console.log('user', user);
 
   const post = await postModel.findById({ _id: id })
   if (!post) {
     return res.status(400).json({ mssg: 'this post does not exist in our data base' })
+  }
+
+  const postAuthor = post.author.toString() // Convert the ObjectId to a string from object format
+  console.log('post Author', postAuthor);
+
+  if ( postAuthor !== user ){
+    return res.status(403).json({mssg:'you cannot delete another users post'})
   }
 
   try {
@@ -170,4 +172,4 @@ const deletePost = async (req, res) => {
 }
 
 
-module.exports = { createPost, getAllPosts, getOnePost,updatePost, deletePost, createComment }
+module.exports = { createPost, getAllPosts, getOnePost, updatePost, deletePost, likePost, createComment }

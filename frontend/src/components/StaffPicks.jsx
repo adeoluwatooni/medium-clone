@@ -22,7 +22,7 @@ const StaffPicks = () => {
       <h3>
         Staff Picks
       </h3>
-      {stories.map((story => {
+      {stories.map((story) => {
         return (
         <div className="preview">
           <h6 className="writer">
@@ -33,7 +33,7 @@ const StaffPicks = () => {
           </h4>
         </div>
         )
-      }))}
+      })}
     </div>
   )
 }

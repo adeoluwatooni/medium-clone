@@ -4,13 +4,13 @@ import './Categories.css'
 
 const Categories = () => {
 
-  const categories = ['Foryou', 'Following', 'React', 'Mindfulness', 'Podcast', 'JavaScript', 'Marketing', 'Freelancing', 'Digitalization', 'Creativity', 'Remote Work', 'Fitness', 'Humor', 'Space', 'Productivity', 'Dance'] 
+  const categories = ['For you', 'Following', 'React', 'Mindfulness', 'Podcast', 'JavaScript', 'Marketing', 'Freelancing', 'Digitalization', 'Creativity', 'Remote Work', 'Fitness', 'Humor', 'Space', 'Productivity', 'Dance'] 
 
   return (
       <div className="categories" >
         <a class="material-symbols-outlined" href="google.com">add</a>
 
-        <>
+        <span>
           {categories.map(category => {
             return (
               <span>
@@ -20,7 +20,7 @@ const Categories = () => {
               </span>              
             )
           })}
-        </>
+        </span>
       </div>
   );
 }

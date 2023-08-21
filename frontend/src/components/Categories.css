@@ -5,6 +5,7 @@
   align-items: center;
   overflow: scroll ;
   white-space: nowrap;
+  border-bottom: .1px solid black;
 }
 
 .categories a{

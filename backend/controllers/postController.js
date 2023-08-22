@@ -67,13 +67,23 @@ const likePost = async (req, res) => {
     const blogPost = await postModel.findById({ _id: id })
 
     if (blogPost.likes.includes(user)) {
-      blogPost.likes = blogPost.likes.filter((userId) => {
+      blogPost.likes = blogPost.likes.filter((userId) =>
         userId !== user
-      })
+      )
+      await blogPost.save()
+
+      
+      return res.status(200).json({mssg: 'Unliked post', blogPost})
+    } else {
+      blogPost.likes.push(user)
+
+      await blogPost.save()
+
+      return res.status(200).json({mssg: "You liked this post", blogPost})
     }
     await blogPost.save()
 
-    return res.status(200).json({mssg: 'Successfully liked the post'})
+    return res.status(200).json(blogPost, {mssg: 'Successfully liked the post'})
   } catch (error) {
     res.status(500).json({error: error.message})
   }

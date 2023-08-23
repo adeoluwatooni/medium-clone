@@ -4,26 +4,34 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Categories from './components/Categories';
 import StaffPicks from './components/StaffPicks';
+import PostPreview from './components/PostPreview';
 
 function App() {
   return (
     <div className="App">
       <Navbar />
       <div className="body">
+
         {/* left side of the body */}
-        <div className="leftBodySection">
+        <main className="leftBodySection">
           <div className="timelineSection">
             <Categories/>
           </div>
-          <div className="articles"></div>
-        </div> 
+          <div className="articles">
+            <PostPreview />
+            <PostPreview />
+            <PostPreview />
+          </div>
+        </main> 
+
         {/* Right side of the body */}
-        <div className="rightBodySection">
+        <aside className="rightBodySection">
           <section className="staffPicksSection">
             <StaffPicks />
-          </section>
+          </section> 
+
           <section className="recommendedTopicsSection"></section>
-        </div>
+        </aside>
       </div>
     </div>
   );

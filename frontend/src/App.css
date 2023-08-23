@@ -3,27 +3,31 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  /* font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif; */
 }
 
 .body{
-  width: 81%;
+  width: 79%;
   display: grid;
   grid-template-columns: 22fr 10fr;
   margin:  auto;
 }
 
 .leftBodySection{
-  max-width: 700px;
+  max-width: 685px;
   /* background-color: bisque; */
   padding: 30px 0px;
 }
 
+.articles{
+  padding-top: 25px;
+}
+
 .rightBodySection {
-  border-left: 0.01px solid gray;
+  border-left: 1px solid  rgba(220, 220, 220, 0.58);
   height: 100%;
   padding: 30px 20px;
 }
-
 
 .staffPicksSection{
   padding-left: 25px;

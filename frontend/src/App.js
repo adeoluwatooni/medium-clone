@@ -5,6 +5,8 @@ import Navbar from './components/Navbar';
 import Categories from './components/Categories';
 import StaffPicks from './components/StaffPicks';
 import PostPreview from './components/PostPreview';
+import RecommendedTopics from './components/RecommendedTopics';
+import WhoToFollow from './components/WhoToFollow';
 
 function App() {
   return (
@@ -28,6 +30,8 @@ function App() {
         <aside className="rightBodySection">
           <section className="staffPicksSection">
             <StaffPicks />
+            <RecommendedTopics />
+            <WhoToFollow />
           </section> 
 
           <section className="recommendedTopicsSection"></section>

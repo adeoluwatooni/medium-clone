@@ -1,4 +1,4 @@
-import './PostPreview.css'
+import '../styles/./PostPreview.css'
 
 import prevImg from '../assets/images/blog-preview-image.jpeg'
 import authorDP from "../assets/images/authorDP.jpeg"

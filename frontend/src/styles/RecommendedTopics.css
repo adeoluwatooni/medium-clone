@@ -1,0 +1,43 @@
+.recommendedTopicsDiv{
+  margin-top: 50px;
+}
+
+.recommendedTopicsSection h3{
+  font-size: medium;
+  /* margin-bottom: 2vh; */
+    margin-bottom: 20px;
+}
+
+.recommendedTopicsSection .topicDiv{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* gap: 1.5vh;
+  margin-bottom: 3vh; */
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.recommendedTopicsSection .topic{
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: rgba(220, 220, 220, 0.348);
+  font-size: medium;
+}
+
+.topicsLinks{
+  text-decoration: none;
+  background-color: transparent;
+  color: black;
+  font-size: small;
+}
+
+.recommended-SeeMore{
+  text-decoration: none;
+  font-size: small;
+  color:green ;
+}
+
+.recommended-SeeMore:hover {
+  color: black;
+}

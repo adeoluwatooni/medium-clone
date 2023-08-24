@@ -1,5 +1,9 @@
 
 
+import '../styles/./StaffPicks.css'
+import authorDP from "../assets/images/authorDP.jpeg"
+
+
 const StaffPicks = () => {
 
   const stories = [
@@ -17,6 +21,7 @@ const StaffPicks = () => {
     }
   ]
 
+
   return (
     <div className="staffSuggestions">
       <h3>
@@ -24,16 +29,21 @@ const StaffPicks = () => {
       </h3>
       {stories.map((story) => {
         return (
-        <div className="preview">
-          <h6 className="writer">
-            {story.writer}
-          </h6>
+          <div className="preview">
+            <div className="writerDetails">
+              <img src={authorDP} alt="display pic" />
+              <h6 className="writerName">
+                {story.writer}
+              </h6>
+            </div>
+          
           <h4 className="snippet">
               {story.snippet}
           </h4>
         </div>
         )
       })}
+      <a href="google.com">See the full list</a>
     </div>
   )
 }

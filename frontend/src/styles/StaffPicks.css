@@ -1,0 +1,35 @@
+.staffSuggestions h3{
+  font-size: medium;
+  margin-bottom: 25px;
+  /* margin-bottom: 3vh; */
+}
+
+.staffSuggestions .writerDetails{
+  display: flex;
+  margin-bottom: 6px;
+  gap: 10px;
+  /* margin-bottom: 1vh;
+  gap: 1vh; */
+  align-items: center;
+}
+
+.staffSuggestions img{
+  border-radius: 20px;
+  width: 24px;
+  height: 24px;
+}
+
+.staffSuggestions .snippet{
+  margin-bottom: 18px;
+  /* margin-bottom: 2vh; */
+}
+
+.staffSuggestions a{
+  text-decoration: none;
+  font-size: small;
+  color:green ;
+}
+
+.staffSuggestions a:hover{
+  color:black ;
+}

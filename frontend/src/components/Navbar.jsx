@@ -1,5 +1,5 @@
 
-import './Navbar.css'
+import '../styles/./Navbar.css'
 
 import mediumLogo from "../assets/images/medium-logo.png";
 import write from "../assets/images/write-24.png"

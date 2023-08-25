@@ -1,0 +1,56 @@
+.whoToFollowDiv{
+  margin-top: 30px;
+}
+
+.whoToFollowDiv>h4{
+  margin-bottom: 20px;
+  /* background-color: aliceblue; */
+}
+
+.accountDetails{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.accountDetails .accountInnerDiv{
+  display: flex;
+  column-gap: 13px ;
+}
+
+.accountDetails img{
+  width: 32px;
+  border-radius: 16px;
+}
+
+.accountDetails a{
+  text-decoration: none;
+}
+
+.accountDetails h4{
+  color: black;
+  margin-bottom: 5px;
+}
+
+.accountDetails p{
+  color: gray;
+  font-size: small;
+  line-height: 17px;
+}
+
+.accountDetails button{
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 8px 14px
+}
+
+.whoToFollowDiv .moreAccountSuggestions{
+  text-decoration: none;
+  color: green;
+  font-size: small;
+}
+
+.whoToFollowDiv .moreAccountSuggestions:hover{
+  color: black;
+}

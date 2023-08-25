@@ -1,11 +1,11 @@
 .recommendedTopicsDiv{
-  margin-top: 50px;
+  margin-top: 43px;
 }
 
 .recommendedTopicsSection h3{
   font-size: medium;
   /* margin-bottom: 2vh; */
-    margin-bottom: 20px;
+    margin-bottom: 16px;
 }
 
 .recommendedTopicsSection .topicDiv{
@@ -14,7 +14,7 @@
   flex-wrap: wrap;
   /* gap: 1.5vh;
   margin-bottom: 3vh; */
-  gap: 10px;
+  gap: 10px ;
   margin-bottom: 20px;
 }
 

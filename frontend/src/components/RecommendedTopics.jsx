@@ -20,9 +20,6 @@ const RecommendedTopics = () => {
             )
           })}
         </div>
-        <div className="seeMoreDiv">
-
-        </div>
         <a className='recommended-SeeMore' href="google.com">See more topics</a>
       </section>
     </div>

@@ -20,6 +20,10 @@
   color: black;
 }
 
+.categories a:where {
+  border: 1px solid black;
+}
+
 .categories::-webkit-scrollbar {
   display: none;
 }

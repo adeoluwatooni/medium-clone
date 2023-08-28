@@ -1,0 +1,21 @@
+
+.readingListSection{
+  margin-top: 40px;
+}
+
+.readingListSection h4{
+  margin-bottom: 20px;
+}
+
+.readingListSection .readingListText{
+  font-size: small;
+  color: gray;
+  line-height: 20px;
+}
+
+.readingListSection img{
+  display: inline;
+  vertical-align: middle;
+}
+
+

@@ -7,6 +7,8 @@ import StaffPicks from './components/StaffPicks';
 import PostPreview from './components/PostPreview';
 import RecommendedTopics from './components/RecommendedTopics';
 import WhoToFollow from './components/WhoToFollow';
+import ReadingList from './components/ReadingList';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -23,6 +25,12 @@ function App() {
             <PostPreview />
             <PostPreview />
             <PostPreview />
+            <PostPreview />
+            <PostPreview />
+            <PostPreview />
+            <PostPreview />
+            <PostPreview />
+            <PostPreview />
           </div>
         </main> 
 
@@ -32,8 +40,11 @@ function App() {
             <StaffPicks />
             <RecommendedTopics />
             <WhoToFollow />
-          </section> 
-
+            <ReadingList />
+            <footer>
+              <Footer />
+            </footer>
+          </section>
           <section className="recommendedTopicsSection"></section>
         </aside>
       </div>

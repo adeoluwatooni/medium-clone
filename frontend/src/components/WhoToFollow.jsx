@@ -52,9 +52,12 @@ const WhoToFollow = () => {
           </div>
         )
       })}
-      <a href="google.com" className="moreAccountSuggestions">
-        See more suggestions
-      </a>
+      <div className="moreAccountSuggestionsDiv">
+        <a href="google.com" className="moreAccountSuggestions">
+          See more suggestions
+        </a>
+      </div>
+      
     </div>
   )
 }
